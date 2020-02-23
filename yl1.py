@@ -1,5 +1,5 @@
 import flask
-from flask import request
+from flask import request, render_template
 
 app = flask.Flask(__name__)
 
@@ -200,6 +200,39 @@ def contest():
         print(request.form['sex'])
         print(request.form['accept'])
         return "Форма отправлена"
+
+
+@app.route('/choice/<planet>')
+def choice(planet):
+    return '''<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Выбор планеты</title>
+  <link rel="stylesheet"
+  href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+  integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+  crossorigin="anonymous">
+</head>
+<body>
+  <h1>Мое предложение: {}</h1>
+  <div class="alert alert-primary" role="alert">
+      Она большая и цветастая.
+    </div>
+    <div class="alert alert-success" role="alert">
+      На ней все необходимые ресурсы и больше!
+    </div>
+    <div class="alert alert-warning" role="alert">
+      На ней есть магнитное поле!
+    </div>
+    <div class="alert alert-dark" role="alert">
+        На ней есть своя уютная атмосфера.
+    </div>
+    <div class="alert alert-info" role="alert">
+        Наконец, она просто красива!
+    </div>
+</body>
+</html>'''.format(planet)
 
 
 if __name__ == '__main__':
