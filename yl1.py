@@ -1,5 +1,5 @@
 import flask
-from flask import request, render_template
+from flask import request, render_template, url_for
 
 app = flask.Flask(__name__)
 
@@ -261,6 +261,112 @@ def results(nickname, level, rating):
         </div>
     </body>
     </html>'''.format(nickname, level, rating)
+
+
+@app.route('/load_photo', methods=['POST', 'GET'])
+def load_photo():
+    if request.method == 'GET':
+        return '''<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet"
+  href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+  integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+  crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="/static/css/style.css">
+  <title>Document</title>
+</head>
+<body>
+  <div class='container' align="center" style="padding: 10px">
+    <h1 align="center">Загрузка фотографии</h1>
+    <p align="center">в суперсекретной миссии</p>
+  </div>
+  <form method="post">
+    <div class="form-group">
+    <label for="photo">Выберите файл</label>
+    <input type="file" class="form-control-file" id="photo" name="file">
+    </div>
+    <button type="submit" class="btn btn-primary">Отправить</button>
+    </form>
+</body>
+</html>'''
+    elif request.method == 'POST':
+        file = request.files['file']
+        print(file)
+        return '''<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet"
+  href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+  integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+  crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="/static/css/style.css">
+  <title>Фото</title>
+</head>
+<body>
+  <div class='container' align="center" style="padding: 10px">
+    <h1 align="center">Загрузка фотографии</h1>
+    <p align="center">в суперсекретной миссии</p>
+  </div>
+  <form method="post">
+    <div class="form-group">
+    <label for="photo">Выберите файл</label>
+    <input type="file" class="form-control-file" id="photo" name="file">
+    </div>
+    <img src="{file}" alt="Не существует">
+    <button type="submit" class="btn btn-primary">Отправить</button>
+    </form>
+</body>
+</html>'''.format(file=file)
+
+
+@app.route('/landscape')
+def landscape():
+    return f'''<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet"
+  href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+  integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+  crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  <link rel="stylesheet" type="text/css" href="{url_for('static', filename='css/style.css')}">
+  <title>Document</title>
+</head>
+<body>
+  <div class='container' align='center'>
+    <h1>Пейзажи Марса</h1>
+  </div>
+ <div class='container' style='padding: 50px;'>
+  <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img class="d-block w-100" src="{url_for('static', filename='img/1.jpg')}" alt="First slide">
+    </div>
+    <div class="carousel-item">
+      <img class="d-block w-100" src="{url_for('static', filename='img/2.jpg')}" alt="Second slide">
+    </div>
+    <div class="carousel-item">
+      <img class="d-block w-100" src="{url_for('static', filename='img/3.jpg')}" alt="Third slide">
+    </div>
+  </div>
+  <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div>
+</div>
+</body>
+</html>'''
 
 
 if __name__ == '__main__':
