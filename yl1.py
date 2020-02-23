@@ -278,22 +278,25 @@ def load_photo():
   <title>Document</title>
 </head>
 <body>
-  <div class='container' align="center" style="padding: 10px">
+  <div class='container' align='center'>
     <h1 align="center">Загрузка фотографии</h1>
     <p align="center">в суперсекретной миссии</p>
   </div>
-  <form method="post">
+  <div class='container' style='margin:center; background-color:#FFCC00; padding: 20px'>
+  <form method="post" enctype="multipart/form-data">
     <div class="form-group">
     <label for="photo">Выберите файл</label>
     <input type="file" class="form-control-file" id="photo" name="file">
     </div>
+    <img src="{file}" alt="Не существует">
     <button type="submit" class="btn btn-primary">Отправить</button>
     </form>
+    </div>
 </body>
 </html>'''
     elif request.method == 'POST':
         file = request.files['file']
-        print(file)
+        file.save('static/img/get.jpg')
         return '''<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -306,11 +309,12 @@ def load_photo():
   <title>Фото</title>
 </head>
 <body>
-  <div class='container' align="center" style="padding: 10px">
+  <div class='container' align='center'>
     <h1 align="center">Загрузка фотографии</h1>
     <p align="center">в суперсекретной миссии</p>
   </div>
-  <form method="post">
+  <div class='container' style='margin:center; background-color:#FFCC00; padding: 20px'>
+  <form method="post" enctype="multipart/form-data">
     <div class="form-group">
     <label for="photo">Выберите файл</label>
     <input type="file" class="form-control-file" id="photo" name="file">
@@ -318,8 +322,9 @@ def load_photo():
     <img src="{file}" alt="Не существует">
     <button type="submit" class="btn btn-primary">Отправить</button>
     </form>
+    </div>
 </body>
-</html>'''.format(file=file)
+</html>'''.format(file='static/img/get.jpg')
 
 
 @app.route('/landscape')
