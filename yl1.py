@@ -1,5 +1,5 @@
 import flask
-from flask import request, render_template, url_for
+from flask import request, url_for
 
 app = flask.Flask(__name__)
 
@@ -23,7 +23,7 @@ def promotion():
             <p>Присоединяйся!</p>'''
 
 
-@app.route('/image_mars')
+@app.route('//promotion_image')
 def pic():
     return'''<!DOCTYPE html>
 <html lang="en">
